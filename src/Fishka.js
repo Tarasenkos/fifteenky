@@ -1,35 +1,48 @@
 export class Fishka {
-constructor(element) {
-  this.element = element
-  this.root = document.createElement('div')
+  static classname = 'fifteenky-cell'
 
-}
+  constructor(element, trigger) {
 
-getDomElement(){
-
-  this.root.innerHTML = `<div class="fifteenky-cell" 
-                          dataset-number="${this.element}">${this.element}</div>`  
-  return this.root
-  
-}
-
-move(direction){
+    this.trigger = trigger
+    this.number = element
+    this.direction  = 'noop'
+    this.init()
 
 
-}
+  }
+
+  init() {
+
+    this.root = document.createElement('div')
+    this.root.classList.add(Fishka.classname)
+    this.trigger.subscribe(this.number, (target) => this.move(target))
+
+  }
+
+  getDomElement() {
+
+    this.root.innerHTML = this.number
+    return this.root
+
+  }
+
+  move(target) {
+    target.classList.add(this.direction)
+  }
 
 }
 
 
 export class Empty {
   constructor() {
+    this.number = 'empty'
 
   }
 
   getDomElement() {
     const domElement = document.createElement('div')
     domElement.innerHTML = `<div class="fifteenky-cell empty" dataset-number="empty"></div>`
-    
+
     return domElement
   }
 

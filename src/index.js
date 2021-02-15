@@ -1,4 +1,4 @@
 import { Fifteenky } from "./Fifteenky"
 
-new Fifteenky('.fifteenky').init()
+new Fifteenky('#fifteenky').init()
 
