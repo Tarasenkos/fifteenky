@@ -17,16 +17,18 @@ padding-top: 5rem;
 
   width: fit-content;
   margin: 0 auto;
-  background-color: rgb(252, 250, 231);
+  background-color: rgb(255, 253, 242);
   display: grid;
   gap: 10px;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   border: 2px solid rgb(130, 130, 130);
-  border-radius: 10px;
+  box-shadow: 2px 2px 3px rgb(130, 130, 130);
+  border-radius: 20px;
   
 }
 
 .fifteenky-cell {
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -34,34 +36,51 @@ padding-top: 5rem;
   border-radius: 20px;
   height: 100px;
   width: 100px;
+  color:rgb(97, 60, 60);
   background-color: #eee;
-  box-shadow: 0px 0px 3px rgb(130, 130, 130);
+  box-shadow: 2px 2px 3px rgb(130, 130, 130);
   cursor: pointer;
-  
- 
+  }
+
+.fifteenky-cell:after{
+  position: absolute;
+  content:'';
+  width: 75px;
+  height:75px;
+  box-shadow: 0px 0px 3px rgb(130, 130, 130);
+  background: #f3f3f3;
+  border-radius: 50%;
 }
+
+.fifteenky-cell span{
+  pointer-events: none;
+  z-index: 1;
+}
+
+
+
+
 .empty {
   cursor:default;
   opacity: 0;
-   
 }
 
 .left {
   transform: translate(-110px, 0);
-  transition: all 0.2s ease;
+  transition: all 0.15s ease;
 }
 
 .right {
   transform: translate(110px, 0);
-  transition: all 0.2s ease;
+  transition: all 0.15s ease;
 }
 .up {
   transform: translate(0, -110px);
-  transition: all 0.2s ease;
+  transition: all 0.15s ease;
 }
 .down {
   transform: translate(0, 110px);
-  transition: all 0.2s ease;
+  transition: all 0.15s ease;
 }
 
 

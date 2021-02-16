@@ -21,17 +21,14 @@ export class Fifteenky extends Trigger {
       })
     }
 
-
     const initialArray = generateArray()
     const domElements = getDOMElements(initialArray)
     this.render(domElements)
     setDirections(domElements)
 
     this.root.addEventListener('click', (event) => this.changePlaces(domElements, event.target))
-    
 
   }
-
 
   render(domElements) {
 
@@ -42,9 +39,8 @@ export class Fifteenky extends Trigger {
 
   }
 
-
-
   changePlaces(domElements, element) {
+
 
     if (element.id === 'fifteenky') return
     if (element.innerText === '') return
@@ -72,7 +68,8 @@ export class Fifteenky extends Trigger {
       let newEmptyIndex = domElements.indexOf(emptyElement)
       setDirections(domElements, newEmptyIndex)
       this.ifYouWin(domElements)
-    }, 200)
+    }, 150)
+
 
   }
 
@@ -90,14 +87,16 @@ export class Fifteenky extends Trigger {
     });
 
     if (winner) {
+      this.destroy()
       alert('Поздравляю, Вы победили!')
-      this.root.removeEventListener('click', (event) => this.changePlaces(domElements, event.target))
+      
     }
-    }
-
-
-
   }
+
+  destroy() {
+    this.root.removeEventListener('click', (event) => this.changePlaces(domElements, event.target))
+  }
+}
 
 
 
@@ -172,13 +171,7 @@ function initialArray() {
 }
 
 
-
 function random(number) {
 
-  let random = Math.round(Math.random() * number)
-
-  return random
+  return Math.round(Math.random() * number)
 }
-
-
-

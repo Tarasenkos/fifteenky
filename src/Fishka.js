@@ -21,7 +21,7 @@ export class Fishka {
 
   getDomElement() {
 
-    this.root.innerHTML = this.number
+    this.root.innerHTML = `<span>${this.number}</span>`
     return this.root
 
   }
