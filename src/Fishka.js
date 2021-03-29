@@ -1,13 +1,12 @@
 export class Fishka {
   static classname = 'fifteenky-cell'
 
-  constructor(element, trigger) {
+  constructor(number, trigger) {
 
     this.trigger = trigger
-    this.number = element
+    this.number = number
     this.direction  = 'noop'
     this.init()
-
 
   }
 
@@ -31,20 +30,3 @@ export class Fishka {
   }
 
 }
-
-
-export class Empty {
-  constructor() {
-    this.number = 'empty'
-
-  }
-
-  getDomElement() {
-    const domElement = document.createElement('div')
-    domElement.innerHTML = `<div class="fifteenky-cell empty" dataset-number="empty"></div>`
-
-    return domElement
-  }
-
-}
-

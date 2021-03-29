@@ -1,4 +1,6 @@
-import { Empty, Fishka } from "./Fishka.js"
+import { Fishka } from "./Fishka.js"
+import { Empty } from "./Empty.js"
+import { generateArray } from "./Functions.js"
 import { Trigger } from "./Trigger.js"
 
 export class Fifteenky extends Trigger {
@@ -10,24 +12,13 @@ export class Fifteenky extends Trigger {
   }
 
   init() {
-
-    const getDOMElements = (arrayOfNumbers) => {
-
-      return arrayOfNumbers.map(number => {
-        if (number === 'empty') {
-          return new Empty
-        }
-        return new Fishka(number, this.trigger)
-      })
-    }
-
+    
     const initialArray = generateArray()
-    const domElements = getDOMElements(initialArray)
-    this.render(domElements)
+    const domElements = this.getDOMElements(initialArray)
     setDirections(domElements)
-
+    this.render(domElements)
+    
     this.root.addEventListener('click', (event) => this.changePlaces(domElements, event.target))
-
   }
 
   render(domElements) {
@@ -36,7 +27,6 @@ export class Fifteenky extends Trigger {
     domElements.forEach((element) => {
       this.root.insertAdjacentElement('beforeend', element.getDomElement())
     })
-
   }
 
   changePlaces(domElements, element) {
@@ -70,7 +60,6 @@ export class Fifteenky extends Trigger {
       this.ifYouWin(domElements)
     }, 150)
 
-
   }
 
   ifYouWin(domElements) {
@@ -96,29 +85,43 @@ export class Fifteenky extends Trigger {
   destroy() {
     this.root.removeEventListener('click', (event) => this.changePlaces(domElements, event.target))
   }
+
+  getDOMElements(arrayOfNumbers) {
+
+      return arrayOfNumbers.map(number => {
+        if (number === 'empty') {
+          return new Empty
+        }
+        return new Fishka(number, this.trigger)
+      })
+    }
 }
 
-
-
-
 function setDirections(domElements, emptyIndex = 15) {
+  clearDirections(domElements)
+  setPossibleDirections(domElements, emptyIndex)
+  setImPossibleDirections(domElements)
+}
 
-
+function clearDirections(domElements) {
   domElements.forEach((el) => el.direction = 'noop')
+}
 
+function setPossibleDirections(domElements, emptyIndex) {
 
-  let upperIndex = emptyIndex - 4
-  let lowerIndex = emptyIndex + 4
-  let rightIndex = emptyIndex + 1
-  let leftIndex = emptyIndex - 1
-
+  const upperIndex = emptyIndex - 4
+  const lowerIndex = emptyIndex + 4
+  const rightIndex = emptyIndex + 1
+  const leftIndex = emptyIndex - 1
 
   if (upperIndex >= 0) { domElements[upperIndex].direction = 'down' }
-
-
   if (lowerIndex <= 15) { domElements[lowerIndex].direction = 'up' }
   if (rightIndex <= 15) { domElements[rightIndex].direction = 'left' }
   if (leftIndex >= 0) { domElements[leftIndex].direction = 'right' }
+
+}
+
+function setImPossibleDirections(domElements) {
 
   const rightEls = [3, 7, 11, 15]
   const leftEls = [4, 8, 12]
@@ -134,44 +137,4 @@ function setDirections(domElements, emptyIndex = 15) {
     }
   })
 
-}
-
-
-function generateArray() {
-  let elements = initialArray()
-  let result = []
-
-  for (let i = 15; i >= 1; i--) {
-    let index = [random(i - 1)]
-    let el = elements[index]
-    result.push(el)
-    elements = exclude(elements, el)
-  }
-
-  result.push('empty')
-
-  return result
-}
-
-
-
-function exclude(array, element) {
-  let index = array.indexOf(element)
-  return array.filter((el) => array.indexOf(el) !== index)
-}
-
-
-function initialArray() {
-  let result = []
-  for (let i = 1; i <= 15; i++) {
-    result.push(i)
-  }
-
-  return result
-}
-
-
-function random(number) {
-
-  return Math.round(Math.random() * number)
 }
